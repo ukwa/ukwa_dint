@@ -1,0 +1,39 @@
+<?php
+function ukwa_dint_menu() {
+  $items['mypage-html'] = array(
+    'title' => 'My page with HTML-style function',
+    'page callback' => 'ukwa_dint_html_page',
+    'access callback' => TRUE,
+  );
+
+  $items['mypage-ra'] = array(
+    'title' => 'My page with render array function',
+    'page callback' => 'ukwa_dint_ra_page',
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+// Previous method (still works) of generating a page by returning HTML
+function ukwa_dint_html_page() {
+  $output = '<p>A paragraph about some stuff...</p>';
+  $output .= '<ul><li>first item</li><li>second item</li><li>third item</li></ul>';
+  return $output;
+}
+
+// New method of generating the render array and returning that
+function ukwa_dint_ra_page() {
+  $output =  array(
+    'first_para' => array(
+      '#type' => 'markup',
+      '#markup' => '<p>A paragraph about some stuff...</p>',
+    ),
+    'second_para' => array(
+      '#items' => array('first item', 'second item', 'third item'),
+      '#theme' => 'item_list',
+    ),
+  );
+  return $output;
+}
+?>
