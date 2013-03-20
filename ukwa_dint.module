@@ -1,4 +1,7 @@
 <?php
+
+require_once('ukwa_dint_cf.inc');
+
 function ukwa_dint_menu() {
   $items['mypage-html'] = array(
     'title' => 'My page with HTML-style function',
