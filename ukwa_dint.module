@@ -3,14 +3,9 @@
 require_once('ukwa_dint_cf.inc');
 
 function ukwa_dint_menu() {
-  $items['mypage-html'] = array(
-    'title' => 'My page with HTML-style function',
-    'page callback' => 'ukwa_dint_html_page',
-    'access callback' => TRUE,
-  );
 
-  $items['mypage-ra'] = array(
-    'title' => 'My page with render array function',
+  $items['lookup'] = array(
+    'title' => 'Lookup a URL',
     'page callback' => 'ukwa_dint_ra_page',
     'access callback' => TRUE,
   );
@@ -27,16 +22,26 @@ function ukwa_dint_html_page() {
 
 // New method of generating the render array and returning that
 function ukwa_dint_ra_page() {
+  $params = drupal_get_query_parameters();
+  if( array_key_exists('url', $params)) {
+    $url = $params['url'];
+  } else {
+    $url = "";
+  }
+
   $output =  array(
     'first_para' => array(
       '#type' => 'markup',
-      '#markup' => '<p>A paragraph about some stuff...</p>',
+      '#markup' => '<p>A paragraph about some stuff...</p>'.$url,
     ),
     'second_para' => array(
       '#items' => array('first item', 'second item', 'third item'),
       '#theme' => 'item_list',
     ),
   );
+
+  dpm(node_search_execute($url));
+
   return $output;
 }
 ?>
