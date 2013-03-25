@@ -1,0 +1,5 @@
+name = ukwa_dint_deepsearch
+description = UKWA DINT Deep Search
+version = VERSION
+core = 7.x
+files[] = ukwa_dint_deepsearch.module
