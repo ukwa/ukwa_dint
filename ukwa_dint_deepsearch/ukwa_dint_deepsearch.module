@@ -1,3 +1,18 @@
 <?php
 
+function ukwa_dint_deepsearch_tohex($matches) {
+  //return '%'.implode('',unpack('H*',$matches[0]));
+  return urlencode($matches[0]);
+}
+
+function ukwa_dint_deepsearch_facet_items_alter(&$build, &$settings) {
+                        if ($settings->facet == "content_ffb") {
+                          foreach($build as $key => $item) {
+                            //$build[$key]["#markup"] = drupal_strtoupper($item["#markup"]);
+                            //$build[$key]["#markup"] = '&'.implode(';&',str_split($item["#markup"],2)).';';
+                            $build[$key]["#markup"] = preg_replace_callback( '/[^[:print:]]/', 'ukwa_dint_deepsearch_tohex',pack('H*',$item["#markup"]));
+                          }
+                        }
+                      }
+
 ?>
